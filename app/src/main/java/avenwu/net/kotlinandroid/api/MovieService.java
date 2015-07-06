@@ -2,8 +2,10 @@ package avenwu.net.kotlinandroid.api;
 
 import avenwu.net.kotlinandroid.pojo.BannerListData;
 import avenwu.net.kotlinandroid.pojo.HomeListData;
+import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
+import rx.Observable;
 
 /**
  * Created by chaobin on 7/1/15.
@@ -15,7 +17,10 @@ public interface MovieService {
      * http://apiv2.vmovier.com/api/post/getPostInCate?cateid=0&p=1
      */
     @GET("/api/post/getPostInCate")
-    HomeListData getHomeList(@Query("cateid") int cateid, @Query("p") int p);
+    void getHomeList1(@Query("cateid") int cateid, @Query("p") int p, Callback<HomeListData> callback);
+
+    @GET("/api/post/getPostInCate")
+    Observable<HomeListData> getHomeList(@Query("cateid") int cateid, @Query("p") int p);
 
     /**
      * http://apiv2.vmovier.com/api/index/getBanner?

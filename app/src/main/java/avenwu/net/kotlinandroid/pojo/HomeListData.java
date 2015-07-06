@@ -17,6 +17,7 @@ public class HomeListData extends Response<List<HomeListData.Data>> {
     public static class Data {
         public String banner_id;
         public String title;
+        public String image;
         public String type;
         public String object_id;
     }
