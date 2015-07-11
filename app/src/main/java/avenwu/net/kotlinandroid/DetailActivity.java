@@ -2,12 +2,18 @@ package avenwu.net.kotlinandroid;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+
+import avenwu.net.kotlinandroid.utils.ToolKit;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String VIDEO_TITLE = "video_title";
@@ -30,6 +36,24 @@ public class DetailActivity extends AppCompatActivity {
         if (!TextUtils.isEmpty(videoId)) {
             mWebView.loadUrl(getVideoUrl(videoId));
         }
+        mWebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+
+                return super.shouldInterceptRequest(view, request);
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                if (url != null && url.startsWith(ToolKit.CUSTOM_SCHEME)) {
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    return true;
+                }
+                return super.shouldOverrideUrlLoading(view, url);
+            }
+        });
     }
 
     private String getVideoUrl(String id) {

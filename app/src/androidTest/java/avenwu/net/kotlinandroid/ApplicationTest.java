@@ -8,6 +8,7 @@ import avenwu.net.kotlinandroid.api.MovieService;
 import avenwu.net.kotlinandroid.pojo.BannerListData;
 import avenwu.net.kotlinandroid.pojo.HomeListData;
 import avenwu.net.kotlinandroid.pojo.Response;
+import avenwu.net.kotlinandroid.utils.ToolKit;
 
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
@@ -45,6 +46,7 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
     }
 
     public void testDetail() {
-
+        String rawUrl = "vmovier://play?qiniu_url=http://vmovier.qiniudn.com/559f8d1cb40de.mp4&title=%E4%B8%96%E7%95%8C%E7%BA%A7%E7%94%B5%E5%BD%B1%E8%8A%82%E5%B1%A1%E8%8E%B7%E5%85%A5%E9%80%89%E7%9F%AD%E7%89%87%E3%80%8A%E4%B8%BA%E4%BD%A0%E5%8C%96%E4%BD%9C%E9%A3%98%E9%9B%AA%E3%80%8B";
+        String url = ToolKit.getVideoUrl(rawUrl);
     }
 }
