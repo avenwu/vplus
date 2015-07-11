@@ -15,7 +15,13 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+#Retrofit
 -dontwarn retrofit.**
 -keep class retrofit.** { *; }
 -keepattributes Signature
 -keepattributes Exceptions
+#Realm
+-keep @io.realm.annotations.RealmModule class *
+-dontwarn javax.**
+-dontwarn io.realm.**

@@ -39,6 +39,7 @@ dependencies {
     compile 'com.facebook.fresco:fresco:0.5.3'
     compile 'io.reactivex:rxandroid:0.25.0'
     compile 'com.android.support:support-v4:22.2.0'
+    compile 'io.realm:realm-android:0.81.1'
     compile project(':corelib')
     compile project(':player-java')
     compile project(':player-armv7a')
