@@ -28,4 +28,7 @@ public interface MovieService {
     @GET("/api/index/getBanner")
     BannerListData getBannerList();
 
+    /**
+     * http://www.vmovier.com/46986?qingapp=app_h5
+     */
 }

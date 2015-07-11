@@ -1,6 +1,9 @@
 <resources>
-    <string name="app_name">V电影+</string>
+    <string name="app_name">V+视频</string>
 
     <string name="action_settings">Settings</string>
     <string name="request_failed">数据不见了，稍后再试吧</string>
+    <string name="title_activity_detail">DetailActivity</string>
+
+    <string name="hello_world">Hello world!</string>
 </resources>

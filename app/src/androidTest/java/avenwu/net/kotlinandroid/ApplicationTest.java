@@ -43,4 +43,8 @@ public class ApplicationTest extends ApplicationTestCase<Application> {
         commonCheck(data);
         assertTrue("size为空", data.data.size() > 0);
     }
+
+    public void testDetail() {
+
+    }
 }

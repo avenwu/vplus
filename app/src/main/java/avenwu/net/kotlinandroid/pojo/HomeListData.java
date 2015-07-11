@@ -8,17 +8,37 @@ import java.util.List;
 public class HomeListData extends Response<List<HomeListData.Data>> {
 
     /**
-     * "banner_id": "379",
-     * "title": "",
-     * "image": "http://apiv2.vmovier.com/Uploads/Vmovier/banner/2015/07-01/559361e8eb52b.jpg",
-     * "type": "post",
-     * "object_id": "46986"
+     * postid: "47050",
+     * title: "创意逗趣戳心窝短片《当“失眠”被拟人化》",
+     * is_xpc: 0,
+     * is_promote: 0,
+     * is_xpc_zp: 0,
+     * is_xpc_cp: 0,
+     * is_xpc_fx: 0,
+     * recent_hot: 0,
+     * discussion: 0,
+     * image: "http://cs.vmovier.com/Uploads/cover/2015-07-09/559e447830993_cut.jpeg",
+     * rating: "3.7",
+     * duration: "122",
+     * publish_time: "1436581922",
+     * like_num: "0",
+     * share_num: "0
      */
     public static class Data {
-        public String banner_id;
+        public String postid;
         public String title;
+        public int is_xpc;
+        public int is_promote;
+        public int is_xpc_zp;
+        public int is_xpc_cp;
+        public int is_xpc_fx;
+        public int recent_hot;
+        public int discussion;
         public String image;
-        public String type;
-        public String object_id;
+        public String rating;
+        public String duration;
+        public String publish_time;
+        public String like_num;
+        public String share_num;
     }
 }
