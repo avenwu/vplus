@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import avenwu.net.kotlinandroid.adapter.HomeListAdapter;
 import avenwu.net.kotlinandroid.api.CoreApi;
+import avenwu.net.kotlinandroid.api.Presenter;
 import avenwu.net.kotlinandroid.pojo.HomeListData;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -22,7 +23,8 @@ import retrofit.client.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeListFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+public class HomeListFragment extends PresenterFragment<HomeListPresenter> implements SwipeRefreshLayout
+        .OnRefreshListener {
     HomeListAdapter mAdapter = new HomeListAdapter();
     RecyclerView mRecylerView;
     SwipeRefreshLayout mSwipeLayout;
@@ -30,6 +32,11 @@ public class HomeListFragment extends Fragment implements SwipeRefreshLayout.OnR
 
     public HomeListFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    protected Class<? extends HomeListPresenter> getPresenterClass() {
+        return HomeListPresenter.class;
     }
 
     public static HomeListFragment newInstance(int cateId) {
@@ -73,7 +80,7 @@ public class HomeListFragment extends Fragment implements SwipeRefreshLayout.OnR
     }
 
     private void requestHomeListData() {
-        CoreApi.movie().getHomeList1(mCateId, 1, new Callback<HomeListData>() {
+        mPresenter.queryDataInCategory(mCateId, 1, new Callback<HomeListData>() {
             @Override
             public void success(HomeListData homeListData, Response response) {
                 mAdapter.setData(homeListData.data);

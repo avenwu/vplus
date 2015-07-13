@@ -8,7 +8,6 @@ import avenwu.net.kotlinandroid.pojo.HomeListData;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
-import rx.Observable;
 
 /**
  * Created by chaobin on 7/1/15.

@@ -13,7 +13,10 @@
     <com.facebook.drawee.view.SimpleDraweeView
         android:id="@+id/iv_pic"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:placeholderImage="@color/material_blue_grey_800"
+        app:pressedStateOverlayImage="@color/black_overlay"/>
 
     <TextView
         android:id="@+id/tv_info"
@@ -21,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:lines="2"
-        android:background="@drawable/text_tranparent_bg"
+        android:background="@drawable/text_transparent_bg"
         android:padding="5dp"
         android:textColor="#fff"/>
 

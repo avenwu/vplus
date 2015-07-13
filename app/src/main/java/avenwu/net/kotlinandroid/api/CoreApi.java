@@ -1,17 +1,26 @@
 package avenwu.net.kotlinandroid.api;
 
+import avenwu.net.kotlinandroid.BuildConfig;
 import retrofit.RestAdapter;
 
 /**
  * Created by chaobin on 7/1/15.
  */
 public class CoreApi {
+    static MovieService sMovieService;
+
+    static {
+        sMovieService = new RestAdapter.Builder()
+                .setEndpoint(MovieService.DOMAIN)
+                .setLogLevel(BuildConfig.DEBUG ? RestAdapter.LogLevel.FULL : RestAdapter.LogLevel.NONE)
+                .build()
+                .create(MovieService.class);
+    }
+
     /**
      * 获取MovieService
      */
     public static MovieService movie() {
-        RestAdapter adapter = new RestAdapter.Builder().setEndpoint(MovieService.DOMAIN)
-                .setLogLevel(RestAdapter.LogLevel.FULL).build();
-        return adapter.create(MovieService.class);
+        return sMovieService;
     }
 }
