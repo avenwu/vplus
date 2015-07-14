@@ -55,7 +55,7 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
                 setFragmentContent("star", PostFragment.class, bundle);
                 break;
             case R.id.menu_stage:
-
+                setFragmentContent("stage", BackstageFragment.class, bundle);
                 break;
             case R.id.menu_series:
 

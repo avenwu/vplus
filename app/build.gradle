@@ -7,7 +7,7 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "avenwu.net.kotlinandroid"
+        applicationId "avenwu.net.vplus"
         minSdkVersion 15
         targetSdkVersion 22
         versionCode 1

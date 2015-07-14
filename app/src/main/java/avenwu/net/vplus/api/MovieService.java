@@ -2,6 +2,8 @@ package avenwu.net.vplus.api;
 
 import java.util.List;
 
+import avenwu.net.vplus.pojo.BackstageCategoryData;
+import avenwu.net.vplus.pojo.BackstageItem;
 import avenwu.net.vplus.pojo.BannerListData;
 import avenwu.net.vplus.pojo.CategoryData;
 import avenwu.net.vplus.pojo.MovieItem;
@@ -38,4 +40,17 @@ public interface MovieService {
      */
     @GET("/api/post/getPostByTab")
     void getPostByTab(@Query("tab") String tab, @Query("p") int page, Callback<MovieItem> callback);
+
+    /**
+     * http://apiv2.vmovier.com/api/backstage/getBackstageCate
+     */
+    @GET("/api/backstage/getBackstageCate")
+    void getBackstageCategory(Callback<BackstageCategoryData> callback);
+
+    /**
+     * http://apiv2.vmovier.com/api/backstage/getPostByCate?cateid=2&p=1
+     */
+    @GET("/api/backstage/getPostByCate")
+    void getPostByCategory(@Query("cateid") int cateid, @Query("p") int p,
+                           Callback<BackstageItem> callback);
 }

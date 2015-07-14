@@ -17,45 +17,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 import avenwu.net.vplus.R;
-import avenwu.net.vplus.pojo.CategoryData;
-import avenwu.net.vplus.presenter.HomePresenter;
+import avenwu.net.vplus.pojo.BackstageCategoryData;
+import avenwu.net.vplus.presenter.StagePresenter;
 import avenwu.net.vplus.protocol.UIAction;
 
 /**
  * Created by chaobin on 7/14/15.
  */
-public class HomeFragment extends PresenterFragment<HomePresenter> {
-
+public class BackstageFragment extends PresenterFragment<StagePresenter> {
     TabLayout mTabLayout;
     ViewPager mViewPager;
-    List<CategoryData> mCategoryList = new ArrayList<CategoryData>();
+    List<BackstageCategoryData.Data> mCategoryList = new ArrayList<BackstageCategoryData.Data>();
 
     @Override
-    protected Class<? extends HomePresenter> getPresenterClass() {
-        return HomePresenter.class;
+    protected Class<? extends StagePresenter> getPresenterClass() {
+        return StagePresenter.class;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getPresenter().addAction(HomePresenter.ACTION_QUERY_CATEGORY, new UIAction<List<CategoryData>>() {
+        getPresenter().addAction(StagePresenter.ACTION_QUERY_CATEGORY, new UIAction<BackstageCategoryData>() {
             @Override
-            public void onUpdateUI(List<CategoryData> data) {
-                if (data == null || data.size() <= 0) {
+            public void onUpdateUI(BackstageCategoryData data) {
+                if (data == null || data.data == null || data.data.size() <= 0) {
                     Toast.makeText(getActivity(), R.string.request_failed, Toast
                             .LENGTH_SHORT).show();
                 } else {
-                    mCategoryList.addAll(data);
+                    mCategoryList.addAll(data.data);
                     notifyTabLayout();
                 }
             }
-        }).addAction(HomePresenter.ACTION_GET_CACHED_CATEGORY, new UIAction<List<CategoryData>>() {
+        }).addAction(StagePresenter.ACTION_GET_CACHED_CATEGORY, new UIAction<BackstageCategoryData>() {
             @Override
-            public void onUpdateUI(List<CategoryData> data) {
-                if (data == null || data.size() <= 0) {
+            public void onUpdateUI(BackstageCategoryData data) {
+                if (data == null || data.data == null || data.data.size() <= 0) {
                     getPresenter().queryOnlineCategory();
                 } else {
-                    mCategoryList.addAll(data);
+                    mCategoryList.addAll(data.data);
                     notifyTabLayout();
                 }
             }
@@ -71,7 +70,7 @@ public class HomeFragment extends PresenterFragment<HomePresenter> {
         if (ab != null) {
             ab.setHomeAsUpIndicator(R.drawable.ic_menu);
             ab.setDisplayHomeAsUpEnabled(true);
-            ab.setTitle(R.string.menu_home);
+            ab.setTitle(R.string.menu_stage);
         }
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);
@@ -84,7 +83,7 @@ public class HomeFragment extends PresenterFragment<HomePresenter> {
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getChildFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
-                return PostInCategoryFragment.newInstance(Integer.parseInt(mCategoryList.get(position).cateid));
+                return BackstageCategoryFragment.newInstance(Integer.parseInt(mCategoryList.get(position).cateid));
             }
 
             @Override
