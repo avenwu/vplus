@@ -34,4 +34,11 @@
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="menu_home">首页</string>
+    <string name="menu_hot">热门视频</string>
+    <string name="menu_series">系列短剧</string>
+    <string name="menu_stage">幕后花絮</string>
+    <string name="menu_stared">小编推荐</string>
+    <string name="menu_random">随便看看</string>
+
 </resources>

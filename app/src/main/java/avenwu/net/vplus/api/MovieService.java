@@ -19,7 +19,7 @@ public interface MovieService {
      * http://apiv2.vmovier.com/api/post/getPostInCate?cateid=0&p=1
      */
     @GET("/api/post/getPostInCate")
-    void getHomeList1(@Query("cateid") int cateid, @Query("p") int p, Callback<HomeListData> callback);
+    void getPostInCategory(@Query("cateid") int cateid, @Query("p") int p, Callback<HomeListData> callback);
 
     /**
      * http://apiv2.vmovier.com/api/index/getBanner?

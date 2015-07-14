@@ -2,21 +2,29 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_home"
+            android:id="@+id/menu_home"
             android:icon="@android:drawable/ic_menu_search"
-            android:title="Home"/>
+            android:title="@string/menu_home"/>
         <item
-            android:id="@+id/nav_messages"
+            android:id="@+id/menu_hot"
             android:icon="@android:drawable/ic_menu_search"
-            android:title="Messages"/>
+            android:title="@string/menu_hot"/>
         <item
-            android:id="@+id/nav_friends"
+            android:id="@+id/menu_stared"
             android:icon="@android:drawable/ic_menu_search"
-            android:title="Friends"/>
+            android:title="@string/menu_stared"/>
         <item
-            android:id="@+id/nav_discussion"
+            android:id="@+id/menu_stage"
             android:icon="@android:drawable/ic_menu_search"
-            android:title="Discussion"/>
+            android:title="@string/menu_stage"/>
+        <item
+            android:id="@+id/menu_series"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/menu_series"/>
+        <item
+            android:id="@+id/menu_random"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/menu_random"/>
     </group>
 
     <item android:title="Sub items">

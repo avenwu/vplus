@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import avenwu.net.vplus.presenter.HomeListPresenter;
+import avenwu.net.vplus.presenter.PostInCategoryPresenter;
 import avenwu.net.vplus.R;
-import avenwu.net.vplus.adapter.HomeListAdapter;
+import avenwu.net.vplus.adapter.PostInCategoryAdapter;
 import avenwu.net.vplus.pojo.HomeListData;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -23,24 +23,24 @@ import retrofit.client.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HomeListFragment extends PresenterFragment<HomeListPresenter> implements SwipeRefreshLayout
+public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPresenter> implements SwipeRefreshLayout
         .OnRefreshListener {
-    HomeListAdapter mAdapter = new HomeListAdapter();
+    PostInCategoryAdapter mAdapter = new PostInCategoryAdapter();
     RecyclerView mRecylerView;
     SwipeRefreshLayout mSwipeLayout;
     int mCateId;
 
-    public HomeListFragment() {
+    public PostInCategoryFragment() {
         // Required empty public constructor
     }
 
     @Override
-    protected Class<? extends HomeListPresenter> getPresenterClass() {
-        return HomeListPresenter.class;
+    protected Class<? extends PostInCategoryPresenter> getPresenterClass() {
+        return PostInCategoryPresenter.class;
     }
 
-    public static HomeListFragment newInstance(int cateId) {
-        HomeListFragment fragment = new HomeListFragment();
+    public static PostInCategoryFragment newInstance(int cateId) {
+        PostInCategoryFragment fragment = new PostInCategoryFragment();
         Bundle bundle = new Bundle();
         bundle.putInt("cate_id", cateId);
         fragment.setArguments(bundle);

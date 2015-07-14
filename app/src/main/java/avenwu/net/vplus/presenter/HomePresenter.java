@@ -24,7 +24,7 @@ import retrofit.client.Response;
 /**
  * Created by chaobin on 7/14/15.
  */
-public class MainPresenter extends Presenter {
+public class HomePresenter extends Presenter {
     public static final String ACTION_GET_CACHED_CATEGORY = "action_get_cached_category";
     public static final String ACTION_QUERY_CATEGORY = "action_query_category";
 

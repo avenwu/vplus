@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.request.ImageRequest;
@@ -22,7 +21,7 @@ import avenwu.net.vplus.pojo.HomeListData;
 /**
  * Created by chaobin on 7/1/15.
  */
-public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.Holder> implements View.OnClickListener {
+public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAdapter.Holder> implements View.OnClickListener {
 
     public static class Holder extends RecyclerView.ViewHolder {
         public TextView label;
