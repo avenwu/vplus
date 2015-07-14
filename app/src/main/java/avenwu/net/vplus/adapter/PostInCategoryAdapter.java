@@ -16,7 +16,7 @@ import java.util.List;
 
 import avenwu.net.vplus.view.DetailActivity;
 import avenwu.net.vplus.R;
-import avenwu.net.vplus.pojo.HomeListData;
+import avenwu.net.vplus.pojo.MovieItem;
 
 /**
  * Created by chaobin on 7/1/15.
@@ -34,7 +34,7 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
         }
     }
 
-    List<HomeListData.Data> mData;
+    List<MovieItem.Data> mData;
     int mWidth = 0;
 
     @Override
@@ -51,7 +51,7 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
 
     @Override
     public void onBindViewHolder(Holder holder, int position) {
-        HomeListData.Data data = mData.get(position);
+        MovieItem.Data data = mData.get(position);
         holder.label.setText(data.title);
         holder.itemView.getLayoutParams().width = mWidth;
         float percent = 1;
@@ -79,7 +79,7 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
         holder.itemView.setOnClickListener(this);
     }
 
-    private String encodeTag(HomeListData.Data data) {
+    private String encodeTag(MovieItem.Data data) {
         return data.title + ":" + data.postid;
     }
 
@@ -98,7 +98,7 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
         return mData == null ? 0 : mData.size();
     }
 
-    public void setData(List<HomeListData.Data> data) {
+    public void setData(List<MovieItem.Data> data) {
         mData = data;
     }
 

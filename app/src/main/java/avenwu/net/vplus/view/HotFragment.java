@@ -1,62 +1,52 @@
 package avenwu.net.vplus.view;
 
-
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import avenwu.net.vplus.presenter.PostInCategoryPresenter;
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.PostInCategoryAdapter;
 import avenwu.net.vplus.pojo.MovieItem;
+import avenwu.net.vplus.presenter.HotPresenter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Created by chaobin on 7/14/15.
  */
-public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPresenter> implements SwipeRefreshLayout
+public class HotFragment extends PresenterFragment<HotPresenter> implements SwipeRefreshLayout
         .OnRefreshListener {
     PostInCategoryAdapter mAdapter = new PostInCategoryAdapter();
     RecyclerView mRecylerView;
     SwipeRefreshLayout mSwipeLayout;
-    int mCateId;
-
-    public PostInCategoryFragment() {
-        // Required empty public constructor
-    }
 
     @Override
-    protected Class<? extends PostInCategoryPresenter> getPresenterClass() {
-        return PostInCategoryPresenter.class;
+    protected Class<? extends HotPresenter> getPresenterClass() {
+        return HotPresenter.class;
     }
 
-    public static PostInCategoryFragment newInstance(int cateId) {
-        PostInCategoryFragment fragment = new PostInCategoryFragment();
-        Bundle bundle = new Bundle();
-        bundle.putInt("cate_id", cateId);
-        fragment.setArguments(bundle);
-        return fragment;
-    }
-
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mCateId = getArguments().getInt("cate_id");
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_list, null);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.hot_layout, null);
+        Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
+        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        toolbar.setTitleTextColor(0xFFFFFFFF);
+        final ActionBar ab = ((MainActivity) getActivity()).getSupportActionBar();
+        if (ab != null) {
+            ab.setHomeAsUpIndicator(R.drawable.ic_menu);
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
         mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
         return view;
@@ -77,16 +67,16 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                 mSwipeLayout.setRefreshing(true);
             }
         });
-        requestHomeListData();
+        requestListData();
     }
 
     @Override
     public void onRefresh() {
-        requestHomeListData();
+        requestListData();
     }
 
-    private void requestHomeListData() {
-        getPresenter().queryDataInCategory(mCateId, 1, new Callback<MovieItem>() {
+    private void requestListData() {
+        getPresenter().getHotListData(1, new Callback<MovieItem>() {
             @Override
             public void success(MovieItem homeListData, Response response) {
                 mAdapter.setData(homeListData.data);

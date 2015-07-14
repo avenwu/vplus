@@ -4,7 +4,7 @@ import java.util.List;
 
 import avenwu.net.vplus.pojo.BannerListData;
 import avenwu.net.vplus.pojo.CategoryData;
-import avenwu.net.vplus.pojo.HomeListData;
+import avenwu.net.vplus.pojo.MovieItem;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Query;
@@ -19,7 +19,7 @@ public interface MovieService {
      * http://apiv2.vmovier.com/api/post/getPostInCate?cateid=0&p=1
      */
     @GET("/api/post/getPostInCate")
-    void getPostInCategory(@Query("cateid") int cateid, @Query("p") int p, Callback<HomeListData> callback);
+    void getPostInCategory(@Query("cateid") int cateid, @Query("p") int p, Callback<MovieItem> callback);
 
     /**
      * http://apiv2.vmovier.com/api/index/getBanner?
@@ -32,4 +32,10 @@ public interface MovieService {
      */
     @GET("/api/cate/getListV4")
     void getCategoryList(Callback<List<CategoryData>> callback);
+
+    /**
+     * http://apiv2.vmovier.com/api/post/getPostByTab?tab=hot&p=1
+     */
+    @GET("/api/post/getPostByTab")
+    void getPostByTab(@Query("tab") String tab, @Query("p") int page, Callback<MovieItem> callback);
 }

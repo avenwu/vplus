@@ -2,6 +2,7 @@ package avenwu.net.vplus.view;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
@@ -28,7 +29,7 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
         navigationView.setNavigationItemSelectedListener(this);
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.content, new HomeFragment
-                    ()).commitAllowingStateLoss();
+                    (), HomeFragment.class.getCanonicalName()).commitAllowingStateLoss();
         }
     }
 
@@ -36,7 +37,43 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);
         mDrawerLayout.closeDrawers();
+        switch (menuItem.getItemId()) {
+            case R.id.menu_home:
+                setContent(HomeFragment.class);
+                break;
+            case R.id.menu_hot:
+                setContent(HotFragment.class);
+                break;
+            case R.id.menu_stared:
+
+                break;
+            case R.id.menu_stage:
+
+                break;
+            case R.id.menu_series:
+
+                break;
+            case R.id.menu_random:
+
+                break;
+        }
         return true;
+    }
+
+    private void setContent(Class<? extends Fragment> clz) {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(clz.getCanonicalName());
+        if (fragment == null) {
+            try {
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, clz.newInstance
+                        (), clz.getCanonicalName()).commitAllowingStateLoss();
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        } else {
+            getSupportFragmentManager().beginTransaction().show(fragment);
+        }
     }
 
     @Override

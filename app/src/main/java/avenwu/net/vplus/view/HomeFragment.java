@@ -66,7 +66,7 @@ public class HomeFragment extends PresenterFragment<HomePresenter> {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.content_layout, null);
+        View view = inflater.inflate(R.layout.category_layout, null);
         ((MainActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
         final ActionBar ab = ((MainActivity) getActivity()).getSupportActionBar();
         if (ab != null) {

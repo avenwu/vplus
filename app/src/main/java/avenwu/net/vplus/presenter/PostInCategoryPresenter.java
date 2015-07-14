@@ -1,7 +1,7 @@
 package avenwu.net.vplus.presenter;
 
 import avenwu.net.vplus.api.CoreApi;
-import avenwu.net.vplus.pojo.HomeListData;
+import avenwu.net.vplus.pojo.MovieItem;
 import retrofit.Callback;
 
 /**
@@ -16,8 +16,8 @@ public class PostInCategoryPresenter extends Presenter {
      * @param page     页码
      * @param callback 回调
      */
-    public void queryDataInCategory(int cateId, int page, Callback<HomeListData> callback) {
-        CoreApi.movie().getPostInCategory(cateId, page, addCallback(new DetachableCallback<HomeListData>
+    public void queryDataInCategory(int cateId, int page, Callback<MovieItem> callback) {
+        CoreApi.movie().getPostInCategory(cateId, page, addCallback(new DetachableCallback<MovieItem>
                 (callback)));
     }
 }

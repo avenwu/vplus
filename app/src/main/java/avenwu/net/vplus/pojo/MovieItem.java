@@ -5,7 +5,7 @@ import java.util.List;
 /**
  * Created by chaobin on 7/1/15.
  */
-public class HomeListData extends Response<List<HomeListData.Data>> {
+public class MovieItem extends Response<List<MovieItem.Data>> {
 
     /**
      * postid: "47050",
