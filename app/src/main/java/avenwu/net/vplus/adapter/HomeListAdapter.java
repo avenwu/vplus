@@ -6,7 +6,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.backends.pipeline.PipelineDraweeController;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.List;
 
@@ -49,7 +54,6 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.Holder
     public void onBindViewHolder(Holder holder, int position) {
         HomeListData.Data data = mData.get(position);
         holder.label.setText(data.title);
-        holder.pic.setImageURI(Uri.parse(data.image));
         holder.itemView.getLayoutParams().width = mWidth;
         float percent = 1;
         switch (position % 3) {
@@ -63,7 +67,15 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.Holder
                 percent = 1.16f;
                 break;
         }
-        holder.itemView.getLayoutParams().height = (int) (percent * mWidth);
+        final int height = (int) (percent * mWidth);
+        holder.itemView.getLayoutParams().height = height;
+        ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(data.image))
+                .setResizeOptions(new ResizeOptions(mWidth, height))
+                .build();
+        holder.pic.setController(Fresco.newDraweeControllerBuilder()
+                .setOldController(holder.pic.getController())
+                .setImageRequest(request)
+                .build());
         holder.itemView.setTag(R.id.tv_info, encodeTag(data));
         holder.itemView.setOnClickListener(this);
     }
