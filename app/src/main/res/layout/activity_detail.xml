@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="avenwu.net.kotlinandroid.view.DetailActivity">
+    tools:context="avenwu.net.vplus.view.DetailActivity">
 
     <WebView
         android:id="@+id/webview"

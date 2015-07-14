@@ -21,7 +21,7 @@ package tv.danmaku.ijk.media.widget;
 import java.io.IOException;
 import java.util.List;
 
-import avenwu.net.kotlinandroid.R;
+import avenwu.net.vplus.R;
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IMediaPlayer.OnBufferingUpdateListener;
 import tv.danmaku.ijk.media.player.IMediaPlayer.OnCompletionListener;

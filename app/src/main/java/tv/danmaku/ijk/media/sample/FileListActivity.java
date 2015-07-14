@@ -14,8 +14,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import avenwu.net.kotlinandroid.R;
-import avenwu.net.kotlinandroid.view.VideoPlayerActivity;
+import avenwu.net.vplus.R;
+import avenwu.net.vplus.view.VideoPlayerActivity;
 
 
 public class FileListActivity extends ActionBarActivity implements LoaderManager.LoaderCallbacks<Cursor> {

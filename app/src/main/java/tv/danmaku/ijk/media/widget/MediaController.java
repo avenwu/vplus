@@ -41,7 +41,7 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import avenwu.net.kotlinandroid.R;
+import avenwu.net.vplus.R;
 
 /**
  * A view containing controls for a MediaPlayer. Typically contains the buttons
