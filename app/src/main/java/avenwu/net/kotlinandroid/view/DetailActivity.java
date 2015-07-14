@@ -1,4 +1,4 @@
-package avenwu.net.kotlinandroid;
+package avenwu.net.kotlinandroid.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import avenwu.net.kotlinandroid.R;
 import avenwu.net.kotlinandroid.utils.ToolKit;
 
 public class DetailActivity extends AppCompatActivity {

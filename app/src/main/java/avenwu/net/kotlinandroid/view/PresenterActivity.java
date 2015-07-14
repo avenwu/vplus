@@ -1,20 +1,20 @@
-package avenwu.net.kotlinandroid;
+package avenwu.net.kotlinandroid.view;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 
-import avenwu.net.kotlinandroid.api.Presenter;
+import avenwu.net.kotlinandroid.presenter.Presenter;
 
 /**
- * Created by chaobin on 7/12/15.
+ * Created by chaobin on 7/14/15.
  */
-public abstract class PresenterFragment<P extends Presenter> extends Fragment {
-    P mPresenter;
+public abstract class PresenterActivity<P extends Presenter> extends AppCompatActivity {
+    protected P mPresenter;
 
     protected abstract Class<? extends P> getPresenterClass();
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
             mPresenter = getPresenterClass().newInstance();
@@ -27,8 +27,12 @@ public abstract class PresenterFragment<P extends Presenter> extends Fragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    protected void onDestroy() {
+        super.onDestroy();
         mPresenter.detach();
+    }
+
+    public P getPresenter() {
+        return mPresenter;
     }
 }

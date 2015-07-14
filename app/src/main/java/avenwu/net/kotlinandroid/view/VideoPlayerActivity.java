@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package avenwu.net.kotlinandroid;
+package avenwu.net.kotlinandroid.view;
 
 import android.app.Activity;
 import android.content.Intent;

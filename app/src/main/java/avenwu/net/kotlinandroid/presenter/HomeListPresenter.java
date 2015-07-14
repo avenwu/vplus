@@ -1,7 +1,6 @@
-package avenwu.net.kotlinandroid;
+package avenwu.net.kotlinandroid.presenter;
 
 import avenwu.net.kotlinandroid.api.CoreApi;
-import avenwu.net.kotlinandroid.api.Presenter;
 import avenwu.net.kotlinandroid.pojo.HomeListData;
 import retrofit.Callback;
 

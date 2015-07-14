@@ -1,6 +1,5 @@
 package avenwu.net.kotlinandroid.adapter;
 
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import com.facebook.drawee.view.SimpleDraweeView;
 
 import java.util.List;
 
-import avenwu.net.kotlinandroid.DetailActivity;
+import avenwu.net.kotlinandroid.view.DetailActivity;
 import avenwu.net.kotlinandroid.R;
 import avenwu.net.kotlinandroid.pojo.HomeListData;
 
@@ -49,7 +48,7 @@ public class HomeListAdapter extends RecyclerView.Adapter<HomeListAdapter.Holder
     public void onBindViewHolder(Holder holder, int position) {
         HomeListData.Data data = mData.get(position);
         holder.label.setText(data.title);
-        holder.pic.setImageURI(Uri.parse(data.image));
+//        holder.pic.setImageURI(Uri.parse(data.image));
         holder.itemView.getLayoutParams().width = mWidth;
         float percent = 1;
         switch (position % 3) {

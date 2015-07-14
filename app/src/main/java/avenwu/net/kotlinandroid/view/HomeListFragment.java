@@ -1,4 +1,4 @@
-package avenwu.net.kotlinandroid;
+package avenwu.net.kotlinandroid.view;
 
 
 import android.os.Bundle;
@@ -12,9 +12,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import avenwu.net.kotlinandroid.presenter.HomeListPresenter;
+import avenwu.net.kotlinandroid.R;
 import avenwu.net.kotlinandroid.adapter.HomeListAdapter;
-import avenwu.net.kotlinandroid.api.CoreApi;
-import avenwu.net.kotlinandroid.api.Presenter;
 import avenwu.net.kotlinandroid.pojo.HomeListData;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -80,7 +80,7 @@ public class HomeListFragment extends PresenterFragment<HomeListPresenter> imple
     }
 
     private void requestHomeListData() {
-        mPresenter.queryDataInCategory(mCateId, 1, new Callback<HomeListData>() {
+        getPresenter().queryDataInCategory(mCateId, 1, new Callback<HomeListData>() {
             @Override
             public void success(HomeListData homeListData, Response response) {
                 mAdapter.setData(homeListData.data);
