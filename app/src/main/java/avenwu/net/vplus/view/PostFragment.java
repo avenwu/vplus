@@ -16,7 +16,7 @@ import android.widget.Toast;
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.PostInCategoryAdapter;
 import avenwu.net.vplus.pojo.MovieItem;
-import avenwu.net.vplus.presenter.HotPresenter;
+import avenwu.net.vplus.presenter.PostPresenter;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -24,15 +24,30 @@ import retrofit.client.Response;
 /**
  * Created by chaobin on 7/14/15.
  */
-public class HotFragment extends PresenterFragment<HotPresenter> implements SwipeRefreshLayout
+public class PostFragment extends PresenterFragment<PostPresenter> implements SwipeRefreshLayout
         .OnRefreshListener {
     PostInCategoryAdapter mAdapter = new PostInCategoryAdapter();
     RecyclerView mRecylerView;
     SwipeRefreshLayout mSwipeLayout;
+    String mTab;
+    String mTitle;
 
     @Override
-    protected Class<? extends HotPresenter> getPresenterClass() {
-        return HotPresenter.class;
+    protected Class<? extends PostPresenter> getPresenterClass() {
+        return PostPresenter.class;
+    }
+
+    public static final String KEY_TAB = "key_tab";
+    public static final String KEY_TITLE = "key_title";
+    public static final String TAB_HOT = "hot";
+    public static final String TAB_STAR = "star";
+    public static final String TAB_RANDOM = "rand";
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mTab = getArguments().getString(KEY_TAB);
+        mTitle = getArguments().getString(KEY_TITLE);
     }
 
     @Nullable
@@ -42,6 +57,7 @@ public class HotFragment extends PresenterFragment<HotPresenter> implements Swip
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
         ((MainActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(0xFFFFFFFF);
+        toolbar.setTitle(mTitle);
         final ActionBar ab = ((MainActivity) getActivity()).getSupportActionBar();
         if (ab != null) {
             ab.setHomeAsUpIndicator(R.drawable.ic_menu);
@@ -76,7 +92,7 @@ public class HotFragment extends PresenterFragment<HotPresenter> implements Swip
     }
 
     private void requestListData() {
-        getPresenter().getHotListData(1, new Callback<MovieItem>() {
+        getPresenter().getHotListData(mTab, 1, new Callback<MovieItem>() {
             @Override
             public void success(MovieItem homeListData, Response response) {
                 mAdapter.setData(homeListData.data);

@@ -55,18 +55,19 @@ public class HomePresenter extends Presenter {
     }
 
     public void queryOnlineCategory() {
-        CoreApi.movie().getCategoryList(new Callback<List<CategoryData>>() {
-            @Override
-            public void success(List<CategoryData> categoryDatas, Response response) {
-                invoke(ACTION_QUERY_CATEGORY, categoryDatas);
-                saveCategory2Cache(categoryDatas);
-            }
+        CoreApi.movie().getCategoryList(addCallback(new DetachableCallback<List<CategoryData>>(
+                new Callback<List<CategoryData>>() {
+                    @Override
+                    public void success(List<CategoryData> categoryDatas, Response response) {
+                        invoke(ACTION_QUERY_CATEGORY, categoryDatas);
+                        saveCategory2Cache(categoryDatas);
+                    }
 
-            @Override
-            public void failure(RetrofitError error) {
-                invoke(ACTION_QUERY_CATEGORY, null);
-            }
-        });
+                    @Override
+                    public void failure(RetrofitError error) {
+                        invoke(ACTION_QUERY_CATEGORY, null);
+                    }
+                })));
     }
 
     private void saveCategory2Cache(List<CategoryData> dataList) {

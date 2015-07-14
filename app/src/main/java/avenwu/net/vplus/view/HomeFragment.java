@@ -72,6 +72,7 @@ public class HomeFragment extends PresenterFragment<HomePresenter> {
         if (ab != null) {
             ab.setHomeAsUpIndicator(R.drawable.ic_menu);
             ab.setDisplayHomeAsUpEnabled(true);
+            ab.setTitle(R.string.menu_home);
         }
         mTabLayout = (TabLayout) view.findViewById(R.id.tabLayout);
         mViewPager = (ViewPager) view.findViewById(R.id.viewPager);

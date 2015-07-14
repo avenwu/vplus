@@ -37,15 +37,22 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
     public boolean onNavigationItemSelected(MenuItem menuItem) {
         menuItem.setChecked(true);
         mDrawerLayout.closeDrawers();
+        Bundle bundle = null;
         switch (menuItem.getItemId()) {
             case R.id.menu_home:
-                setContent(HomeFragment.class);
+                setFragmentContent("home", HomeFragment.class, bundle);
                 break;
             case R.id.menu_hot:
-                setContent(HotFragment.class);
+                bundle = new Bundle();
+                bundle.putString(PostFragment.KEY_TAB, PostFragment.TAB_HOT);
+                bundle.putString(PostFragment.KEY_TITLE, getResources().getString(R.string.menu_hot));
+                setFragmentContent("hot", PostFragment.class, bundle);
                 break;
             case R.id.menu_stared:
-
+                bundle = new Bundle();
+                bundle.putString(PostFragment.KEY_TAB, PostFragment.TAB_STAR);
+                bundle.putString(PostFragment.KEY_TITLE, getResources().getString(R.string.menu_stared));
+                setFragmentContent("star", PostFragment.class, bundle);
                 break;
             case R.id.menu_stage:
 
@@ -54,18 +61,23 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
 
                 break;
             case R.id.menu_random:
-
+                bundle = new Bundle();
+                bundle.putString(PostFragment.KEY_TAB, PostFragment.TAB_RANDOM);
+                bundle.putString(PostFragment.KEY_TITLE, getResources().getString(R.string.menu_random));
+                setFragmentContent("rand", PostFragment.class, bundle);
                 break;
         }
         return true;
     }
 
-    private void setContent(Class<? extends Fragment> clz) {
-        Fragment fragment = getSupportFragmentManager().findFragmentByTag(clz.getCanonicalName());
+    private void setFragmentContent(String tag, Class<? extends Fragment> clz, Bundle bundle) {
+        Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
         if (fragment == null) {
             try {
-                getSupportFragmentManager().beginTransaction().replace(R.id.content, clz.newInstance
-                        (), clz.getCanonicalName()).commitAllowingStateLoss();
+                fragment = clz.newInstance();
+                fragment.setArguments(bundle);
+                getSupportFragmentManager().beginTransaction().replace(R.id.content, fragment, tag)
+                        .commitAllowingStateLoss();
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch (IllegalAccessException e) {

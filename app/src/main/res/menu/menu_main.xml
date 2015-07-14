@@ -14,6 +14,10 @@
             android:icon="@android:drawable/ic_menu_search"
             android:title="@string/menu_stared"/>
         <item
+            android:id="@+id/menu_random"
+            android:icon="@android:drawable/ic_menu_search"
+            android:title="@string/menu_random"/>
+        <item
             android:id="@+id/menu_stage"
             android:icon="@android:drawable/ic_menu_search"
             android:title="@string/menu_stage"/>
@@ -21,10 +25,7 @@
             android:id="@+id/menu_series"
             android:icon="@android:drawable/ic_menu_search"
             android:title="@string/menu_series"/>
-        <item
-            android:id="@+id/menu_random"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="@string/menu_random"/>
+
     </group>
 
     <item android:title="Sub items">
