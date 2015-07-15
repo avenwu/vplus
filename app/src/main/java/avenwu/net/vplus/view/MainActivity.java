@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.presenter.HomePresenter;
@@ -57,14 +58,14 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
             case R.id.menu_stage:
                 setFragmentContent("stage", BackstageFragment.class, bundle);
                 break;
-            case R.id.menu_series:
-
-                break;
             case R.id.menu_random:
                 bundle = new Bundle();
                 bundle.putString(PostFragment.KEY_TAB, PostFragment.TAB_RANDOM);
                 bundle.putString(PostFragment.KEY_TITLE, getResources().getString(R.string.menu_random));
                 setFragmentContent("rand", PostFragment.class, bundle);
+                break;
+            case R.id.menu_about:
+                Toast.makeText(MainActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
                 break;
         }
         return true;

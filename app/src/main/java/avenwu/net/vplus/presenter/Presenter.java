@@ -2,6 +2,7 @@ package avenwu.net.vplus.presenter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -44,6 +45,15 @@ public class Presenter {
         if (mCallback != null) {
             for (DetachableCallback<?> callback : mCallback) {
                 callback.detach();
+            }
+        }
+        if (mActions != null) {
+            Iterator<Map.Entry<String, RenderAction<?>>> iterator = mActions.entrySet().iterator();
+            while (iterator.hasNext()) {
+                // avoid memory leak
+                if (iterator.next().getValue() instanceof UIAction) {
+                    iterator.remove();
+                }
             }
         }
     }

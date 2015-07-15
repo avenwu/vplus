@@ -40,5 +40,6 @@
     <string name="menu_stage">幕后花絮</string>
     <string name="menu_stared">小编推荐</string>
     <string name="menu_random">随便看看</string>
+    <string name="menu_about">关于</string>
 
 </resources>

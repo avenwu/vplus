@@ -21,22 +21,12 @@
             android:id="@+id/menu_stage"
             android:icon="@android:drawable/ic_menu_search"
             android:title="@string/menu_stage"/>
-        <item
-            android:id="@+id/menu_series"
-            android:icon="@android:drawable/ic_menu_search"
-            android:title="@string/menu_series"/>
-
     </group>
 
-    <item android:title="Sub items">
-        <menu>
-            <item
-                android:icon="@android:drawable/ic_menu_search"
-                android:title="Sub item 1"/>
-            <item
-                android:icon="@android:drawable/ic_menu_search"
-                android:title="Sub item 2"/>
-        </menu>
-    </item>
+    <group android:id="@+id/general">
+        <item
+            android:id="@+id/menu_about"
+            android:title="@string/menu_about"/>
+    </group>
 
 </menu>
