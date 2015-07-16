@@ -65,6 +65,9 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
                 bundle.putString(PostFragment.KEY_TITLE, getResources().getString(R.string.menu_random));
                 setFragmentContent("rand", PostFragment.class, bundle);
                 break;
+            case R.id.menu_setting:
+                startActivity(new Intent(MainActivity.this, SettingActivity.class));
+                break;
             case R.id.menu_about:
                 startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;

@@ -41,6 +41,10 @@
     <string name="menu_stared">小编推荐</string>
     <string name="menu_random">随便看看</string>
     <string name="menu_setting">设置</string>
+    <string name="mail_to">mailto:vplus@avenwu.net</string>
+    <string name="no_email_provider">没有找到邮件客户端</string>
+     <string name="default_feedback_devices_info">\n\n[设备: %1$s, 尺寸: %2$s, 系统版本: %3$s (API Level
+    %4$s), 应用版本: %5$s, 当前网络: %6$s]</string>
     <string name="menu_about">关于</string>
     <string name="version_name">版本 %s</string>
     <string name="app_information">\t\tV+客户端为Android平台的一款视频聚合播放软件，本身不制作和提供视频，所有数据均来源于V

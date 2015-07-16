@@ -4,7 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <application
         android:name=".VPlusApplication"
         android:allowBackup="true"
@@ -57,6 +57,9 @@
                 <data android:scheme="vmovier"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.SettingActivity"
+            android:label="@string/menu_setting"/>
         <activity
             android:name=".view.AboutActivity"
             android:label="@string/menu_about"/>
