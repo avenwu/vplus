@@ -5,10 +5,7 @@
         <shape
             android:shape="rectangle">
             <corners android:radius="5dp"/>
-            <stroke
-                android:width="2dp"
-                android:color="@color/indigo_500"/>
-            <solid android:color="@android:color/transparent"/>
+            <solid android:color="@color/indigo_500"/>
         </shape>
     </item>
     <item
@@ -17,7 +14,6 @@
         android:right="2dp"
         android:top="2dp">
         <bitmap
-            android:src="@mipmap/ic_white_logo"
-            android:tint="@color/indigo_500"/>
+            android:src="@mipmap/ic_white_logo"/>
     </item>
 </layer-list>

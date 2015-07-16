@@ -31,7 +31,7 @@
     <string name="vitamio_videoview_error_button">OK</string>
     <string name="mediacontroller_play_pause">Play/Pause</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="menu_home">首页</string>
@@ -40,7 +40,11 @@
     <string name="menu_stage">幕后花絮</string>
     <string name="menu_stared">小编推荐</string>
     <string name="menu_random">随便看看</string>
+    <string name="menu_setting">设置</string>
     <string name="menu_about">关于</string>
-    <string name="version_name">V+视频 %s</string>
+    <string name="version_name">版本 %s</string>
+    <string name="app_information">\t\tV+客户端为Android平台的一款视频聚合播放软件，本身不制作和提供视频，所有数据均来源于V
+        电影/优酷/土豆等.\n\n\t\t如发现任何存在版权问题或不希望被展示的视频，请及时联系我们</string>
+    <string name="feedback_mail">联系方式：vplus@avenwu.net</string>
     <string name="copyright">V+视频 © 2015 小文字</string>
 </resources>

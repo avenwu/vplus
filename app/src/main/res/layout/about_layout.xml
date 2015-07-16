@@ -4,23 +4,42 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.internal.widget.TintImageView
-        android:id="@+id/iv_logo"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="150dp"
-        android:src="@drawable/about_logo_shape"
-        android:tint="@color/indigo_500"/>
-
-    <TextView
-        android:id="@+id/tv_version"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:layout_marginTop="230dp"
-        android:text="@string/version_name"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical">
+
+        <android.support.v7.internal.widget.TintImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_gravity="center_horizontal|top"
+            android:src="@drawable/about_logo_shape"/>
+
+        <TextView
+            android:id="@+id/tv_version"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="@string/version_name"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:text="@string/app_information"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:autoLink="email"
+            android:text="@string/feedback_mail"/>
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tv_copyright"

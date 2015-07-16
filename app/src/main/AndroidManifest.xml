@@ -8,7 +8,7 @@
     <application
         android:name=".VPlusApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/about_logo_shape"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity

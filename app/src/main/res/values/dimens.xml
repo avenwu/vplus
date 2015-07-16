@@ -3,4 +3,6 @@
     <dimen name="activity_horizontal_margin">8dp</dimen>
     <dimen name="activity_vertical_margin">8dp</dimen>
     <dimen name="item_margin">4dp</dimen>
+    <dimen name="item_corner_radius">5dp</dimen>
+    <dimen name="compat_item_corner_radius">2dp</dimen>
 </resources>
