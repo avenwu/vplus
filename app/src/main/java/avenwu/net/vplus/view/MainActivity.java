@@ -1,5 +1,6 @@
 package avenwu.net.vplus.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -65,7 +66,7 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
                 setFragmentContent("rand", PostFragment.class, bundle);
                 break;
             case R.id.menu_about:
-                Toast.makeText(MainActivity.this, "About clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
         }
         return true;

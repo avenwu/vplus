@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="rectangle">
+            <corners android:radius="5dp"/>
+            <stroke
+                android:width="2dp"
+                android:color="@color/indigo_500"/>
+            <solid android:color="@android:color/transparent"/>
+        </shape>
+    </item>
+    <item
+        android:bottom="2dp"
+        android:left="2dp"
+        android:right="2dp"
+        android:top="2dp">
+        <bitmap
+            android:src="@mipmap/ic_white_logo"
+            android:tint="@color/indigo_500"/>
+    </item>
+</layer-list>
