@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,11 @@ import avenwu.net.vplus.presenter.PostInCategoryPresenter;
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.PostInCategoryAdapter;
 import avenwu.net.vplus.pojo.MovieItem;
+import avenwu.net.vplus.widget.LoadingIndicator;
+import avenwu.net.vplus.widget.LoadingStatus;
+import avenwu.net.vplus.widget.OnLastItemVisible;
+import avenwu.net.vplus.widget.SimpleLoadingStatus;
+import avenwu.net.vplus.widget.State;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -26,9 +32,11 @@ import retrofit.client.Response;
 public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPresenter> implements SwipeRefreshLayout
         .OnRefreshListener {
     PostInCategoryAdapter mAdapter = new PostInCategoryAdapter();
-    RecyclerView mRecylerView;
+    RecyclerView mRecyclerView;
     SwipeRefreshLayout mSwipeLayout;
     int mCateId;
+    int mPageIndex = 1;
+    LoadingIndicator mLoadingIndicator;
 
     public PostInCategoryFragment() {
         // Required empty public constructor
@@ -58,16 +66,16 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list, null);
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-        mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recylerview);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecylerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mRecylerView.setAdapter(mAdapter);
-        mRecylerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
         // make sure the refresh view show as expected
@@ -78,25 +86,50 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
             }
         });
         requestHomeListData();
+        mLoadingIndicator = LoadingIndicator.newIndicator(new OnLastItemVisible() {
+            @Override
+            public void onVisible() {
+                Toast.makeText(getActivity(), "Go Hit", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onLoad(State state) {
+                Log.d("Test Log", "on load");
+                requestHomeListData();
+            }
+
+            @Override
+            public LoadingStatus getLoadingStatus() {
+                return (LoadingStatus) View.inflate(getActivity(), R.layout.loading_layout, null);
+            }
+        });
+        mRecyclerView.addOnScrollListener(mLoadingIndicator);
     }
 
     @Override
     public void onRefresh() {
+        mPageIndex = 1;
         requestHomeListData();
     }
 
     private void requestHomeListData() {
-        getPresenter().queryDataInCategory(mCateId, 1, new Callback<MovieItem>() {
+        getPresenter().queryDataInCategory(mCateId, mPageIndex, new Callback<MovieItem>() {
             @Override
             public void success(MovieItem homeListData, Response response) {
-                mAdapter.setData(homeListData.data);
-                mAdapter.notifyDataSetChanged();
+                if (mPageIndex == 1) {
+                    mAdapter.setData(homeListData.data);
+                } else {
+                    mAdapter.appendData(homeListData.data);
+                }
                 mSwipeLayout.setRefreshing(false);
+                mLoadingIndicator.setLoading(State.IDLE);
+                mPageIndex++;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 mSwipeLayout.setRefreshing(false);
+                mLoadingIndicator.setLoading(State.IDLE);
                 Toast.makeText(getActivity(), R.string.request_failed, Toast.LENGTH_SHORT).show();
             }
         });

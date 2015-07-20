@@ -100,6 +100,15 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
 
     public void setData(List<MovieItem.Data> data) {
         mData = data;
+        notifyDataSetChanged();
     }
 
+    public void appendData(List<MovieItem.Data> data) {
+        if (mData != null) {
+            mData.addAll(data);
+        } else {
+            mData = data;
+        }
+        notifyDataSetChanged();
+    }
 }

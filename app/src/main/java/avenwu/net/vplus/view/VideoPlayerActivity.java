@@ -27,8 +27,7 @@ import avenwu.net.vplus.utils.ToolKit;
 import tv.danmaku.ijk.media.widget.MediaController;
 import tv.danmaku.ijk.media.widget.VideoView;
 
-public class
-        VideoPlayerActivity extends Activity {
+public class VideoPlayerActivity extends Activity {
     private VideoView mVideoView;
     private View mBufferingIndicator;
     private MediaController mMediaController;
