@@ -124,7 +124,7 @@ public class LoadingIndicator extends RecyclerView.OnScrollListener {
             super.getItemOffsets(outRect, view, parent, state);
             int count = parent.getAdapter().getItemCount();
             if (parent.getChildAdapterPosition(view) == count - 1) {
-                outRect.bottom = 100;
+                outRect.bottom = mLoadingStatus.getHeight();
             }
         }
     }

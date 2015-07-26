@@ -16,6 +16,8 @@ import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.StageCategoryAdapter;
 import avenwu.net.vplus.pojo.BackstageItem;
 import avenwu.net.vplus.presenter.StageCategoryPresenter;
+import avenwu.net.vplus.widget.OnLastItemVisible;
+import avenwu.net.vplus.widget.State;
 import avenwu.net.vplus.widget.SwipeRecyclerFooterLayout;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -30,6 +32,7 @@ public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPr
     RecyclerView mRecyclerView;
     SwipeRecyclerFooterLayout mSwipeLayout;
     int mCateId;
+    int mPageIndex = 1;
 
     public BackstageCategoryFragment() {
         // Required empty public constructor
@@ -71,6 +74,16 @@ public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPr
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setOnLastItemVisible(new OnLastItemVisible() {
+            @Override
+            public void onVisible() {
+            }
+
+            @Override
+            public void onLoad(State state) {
+                requestHomeListData();
+            }
+        });
         // make sure the refresh view show as expected
         mSwipeLayout.post(new Runnable() {
             @Override
@@ -83,21 +96,28 @@ public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPr
 
     @Override
     public void onRefresh() {
+        mPageIndex = 1;
         requestHomeListData();
     }
 
     private void requestHomeListData() {
-        getPresenter().queryDataInCategory(mCateId, 1, new Callback<BackstageItem>() {
+        getPresenter().queryDataInCategory(mCateId, mPageIndex, new Callback<BackstageItem>() {
             @Override
             public void success(BackstageItem itemData, Response response) {
-                mAdapter.setData(itemData.data);
-                mAdapter.notifyDataSetChanged();
+                if (mPageIndex == 1) {
+                    mAdapter.setData(itemData.data);
+                } else {
+                    mAdapter.appendData(itemData.data);
+                }
                 mSwipeLayout.setRefreshing(false);
+                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
+                mPageIndex++;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 mSwipeLayout.setRefreshing(false);
+                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
                 Toast.makeText(getActivity(), R.string.request_failed, Toast.LENGTH_SHORT).show();
             }
         });

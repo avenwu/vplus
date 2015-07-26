@@ -17,6 +17,8 @@ import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.PostInCategoryAdapter;
 import avenwu.net.vplus.pojo.MovieItem;
 import avenwu.net.vplus.presenter.PostPresenter;
+import avenwu.net.vplus.widget.OnLastItemVisible;
+import avenwu.net.vplus.widget.State;
 import avenwu.net.vplus.widget.SwipeRecyclerFooterLayout;
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -32,6 +34,7 @@ public class PostFragment extends PresenterFragment<PostPresenter> implements Sw
     SwipeRecyclerFooterLayout mSwipeLayout;
     String mTab;
     String mTitle;
+    int mPageIndex = 1;
 
     @Override
     protected Class<? extends PostPresenter> getPresenterClass() {
@@ -77,6 +80,16 @@ public class PostFragment extends PresenterFragment<PostPresenter> implements Sw
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
+        mSwipeLayout.setOnLastItemVisible(new OnLastItemVisible() {
+            @Override
+            public void onVisible() {
+            }
+
+            @Override
+            public void onLoad(State state) {
+                requestListData();
+            }
+        });
         // make sure the refresh view show as expected
         mSwipeLayout.post(new Runnable() {
             @Override
@@ -89,21 +102,28 @@ public class PostFragment extends PresenterFragment<PostPresenter> implements Sw
 
     @Override
     public void onRefresh() {
+        mPageIndex = 1;
         requestListData();
     }
 
     private void requestListData() {
-        getPresenter().getHotListData(mTab, 1, new Callback<MovieItem>() {
+        getPresenter().getHotListData(mTab, mPageIndex, new Callback<MovieItem>() {
             @Override
-            public void success(MovieItem homeListData, Response response) {
-                mAdapter.setData(homeListData.data);
-                mAdapter.notifyDataSetChanged();
+            public void success(MovieItem itemData, Response response) {
+                if (mPageIndex == 1) {
+                    mAdapter.setData(itemData.data);
+                } else {
+                    mAdapter.appendData(itemData.data);
+                }
                 mSwipeLayout.setRefreshing(false);
+                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
+                mPageIndex++;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 mSwipeLayout.setRefreshing(false);
+                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
                 Toast.makeText(getActivity(), R.string.request_failed, Toast.LENGTH_SHORT).show();
             }
         });

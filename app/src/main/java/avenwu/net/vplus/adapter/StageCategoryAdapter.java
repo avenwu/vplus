@@ -16,6 +16,7 @@ import java.util.List;
 
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.pojo.BackstageItem;
+import avenwu.net.vplus.pojo.MovieItem;
 import avenwu.net.vplus.view.DetailActivity;
 
 /**
@@ -102,4 +103,12 @@ public class StageCategoryAdapter extends RecyclerView.Adapter<StageCategoryAdap
         mData = data;
     }
 
+    public void appendData(List<BackstageItem.Data> data) {
+        if (mData != null) {
+            mData.addAll(data);
+        } else {
+            mData = data;
+        }
+        notifyDataSetChanged();
+    }
 }

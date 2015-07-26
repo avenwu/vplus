@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -32,10 +30,10 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
         .OnRefreshListener {
     PostInCategoryAdapter mAdapter = new PostInCategoryAdapter();
     RecyclerView mRecyclerView;
-    SwipeRefreshLayout mSwipeLayout;
+    SwipeRecyclerFooterLayout mSwipeLayout;
     int mCateId;
     int mPageIndex = 1;
-
+    int mItemMargin;
 
     public PostInCategoryFragment() {
         // Required empty public constructor
@@ -58,14 +56,15 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mCateId = getArguments().getInt("cate_id");
+        mItemMargin = getResources().getDimensionPixelSize(R.dimen.item_margin);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list, null);
-        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-        mRecyclerView = ((SwipeRecyclerFooterLayout) mSwipeLayout).getRecyclerView();
+        mSwipeLayout = (SwipeRecyclerFooterLayout) view.findViewById(R.id.swipe_layout);
+        mRecyclerView = mSwipeLayout.getRecyclerView();
         return view;
     }
 
@@ -77,8 +76,7 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
-        // make sure the refresh view show as expected
-        ((SwipeRecyclerFooterLayout) mSwipeLayout).setOnLastItemVisible(new OnLastItemVisible() {
+        mSwipeLayout.setOnLastItemVisible(new OnLastItemVisible() {
             @Override
             public void onVisible() {
             }
@@ -88,6 +86,7 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                 requestHomeListData();
             }
         });
+        // make sure the refresh view show as expected
         mSwipeLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -113,14 +112,14 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                     mAdapter.appendData(homeListData.data);
                 }
                 mSwipeLayout.setRefreshing(false);
-                ((SwipeRecyclerFooterLayout) mSwipeLayout).getLoadingIndicator().setLoading(State.IDLE);
+                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
                 mPageIndex++;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 mSwipeLayout.setRefreshing(false);
-                ((SwipeRecyclerFooterLayout) mSwipeLayout).getLoadingIndicator().setLoading(State.IDLE);
+                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
                 Toast.makeText(getActivity(), R.string.request_failed, Toast.LENGTH_SHORT).show();
             }
         });

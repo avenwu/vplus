@@ -14,9 +14,9 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 
 import java.util.List;
 
-import avenwu.net.vplus.view.DetailActivity;
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.pojo.MovieItem;
+import avenwu.net.vplus.view.DetailActivity;
 
 /**
  * Created by chaobin on 7/1/15.
@@ -41,9 +41,7 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
     public Holder onCreateViewHolder(ViewGroup viewGroup, int position) {
         View view = View.inflate(viewGroup.getContext(), R.layout.home_item, null);
         if (mWidth == 0) {
-            final int outerMargin = viewGroup.getResources().getDimensionPixelSize(R.dimen.activity_horizontal_margin);
-            mWidth = (int) ((viewGroup.getResources().getDisplayMetrics().widthPixels -
-                    outerMargin * 3) / 2.0f);
+            mWidth = viewGroup.getResources().getDisplayMetrics().widthPixels / 2;
         }
         view.setLayoutParams(new RecyclerView.LayoutParams(mWidth, (int) (1.29f * mWidth)));
         return new Holder(view);

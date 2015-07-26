@@ -26,6 +26,9 @@ public class SwipeRecyclerFooterLayout extends SwipeRefreshLayout {
     public SwipeRecyclerFooterLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mRecyclerView = new RecyclerView(context, attrs);
+        mRecyclerView.setClipToPadding(false);
+        int margin = getResources().getDimensionPixelSize(R.dimen.item_margin);
+        mRecyclerView.setPadding(margin, margin, margin, margin);
         addView(mRecyclerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         mLoadingIndicator = LoadingIndicator.newIndicator(new OnLastItemVisible() {
             @Override
@@ -42,6 +45,11 @@ public class SwipeRecyclerFooterLayout extends SwipeRefreshLayout {
                 }
             }
         }).fromXml(getContext(), R.layout.loading_layout).inject(mRecyclerView);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
     }
 
     @Override
