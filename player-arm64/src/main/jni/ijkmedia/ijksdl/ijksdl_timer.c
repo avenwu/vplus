@@ -23,6 +23,7 @@
 
 #include "ijksdl_timer.h"
 #include <unistd.h>
+#include <string.h>
 #include <time.h>
 #include <sys/time.h>
 
@@ -32,6 +33,9 @@
 static int g_is_mach_base_info_inited = 0;
 static kern_return_t g_mach_base_info_ret = 0;
 static mach_timebase_info_data_t g_mach_base_info;
+
+/* nanosleep is not included in c99, just a workaround for CocoaPods */
+int nanosleep(const struct timespec *, struct timespec *) __DARWIN_ALIAS_C(nanosleep);
 #endif
 
 void SDL_Delay(Uint32 ms)
@@ -75,4 +79,45 @@ Uint64 SDL_GetTickHR(void)
     }
 #endif
     return (clock);
+}
+
+void SDL_ProfilerReset(SDL_Profiler* profiler, int max_sample)
+{
+    memset(profiler, 0, sizeof(SDL_Profiler));
+    if (max_sample < 0)
+        profiler->max_sample = 3;
+    else
+        profiler->max_sample = max_sample;
+}
+
+void SDL_ProfilerBegin(SDL_Profiler* profiler)
+{
+    profiler->begin_time = SDL_GetTickHR();
+}
+
+int64_t SDL_ProfilerEnd(SDL_Profiler* profiler)
+{
+    int64_t delta = SDL_GetTickHR() - profiler->begin_time;
+
+    if (profiler->max_sample > 0) {
+        profiler->total_elapsed += delta;
+        profiler->total_counter += 1;
+
+        profiler->sample_elapsed += delta;
+        profiler->sample_counter  += 1;
+
+        if (profiler->sample_counter > profiler->max_sample) {
+            profiler->sample_elapsed -= profiler->average_elapsed;
+            profiler->sample_counter -= 1;
+        }
+
+        if (profiler->sample_counter > 0) {
+            profiler->average_elapsed = profiler->sample_elapsed / profiler->sample_counter;
+        }
+        if (profiler->sample_elapsed > 0) {
+            profiler->sample_per_seconds = profiler->sample_counter * 1000.f / profiler->sample_elapsed;
+        }
+    }
+
+    return delta;
 }

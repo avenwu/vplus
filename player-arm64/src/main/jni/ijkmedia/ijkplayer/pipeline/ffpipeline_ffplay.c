@@ -29,9 +29,9 @@ static SDL_Class g_pipeline_class = {
     .name = "ffpipeline_ffplay",
 };
 
- typedef struct IJKFF_Pipeline_Opaque {
+struct IJKFF_Pipeline_Opaque {
     FFPlayer *ffp;
-} IJKFF_Pipeline_Opaque;
+};
 
 static void func_destroy(IJKFF_Pipeline *pipeline)
 {
@@ -48,6 +48,11 @@ static IJKFF_Pipenode *func_open_video_output(IJKFF_Pipeline *pipeline, FFPlayer
     return ffpipenode_create_video_output_from_ffplay(ffp);
 }
 
+static SDL_Aout *func_open_audio_output(IJKFF_Pipeline *pipeline, FFPlayer *ffp)
+{
+    return NULL;
+}
+
 IJKFF_Pipeline *ffpipeline_create_from_ffplay(FFPlayer *ffp)
 {
     IJKFF_Pipeline *pipeline = ffpipeline_alloc(&g_pipeline_class, sizeof(IJKFF_Pipeline_Opaque));
@@ -60,6 +65,7 @@ IJKFF_Pipeline *ffpipeline_create_from_ffplay(FFPlayer *ffp)
     pipeline->func_destroy            = func_destroy;
     pipeline->func_open_video_decoder = func_open_video_decoder;
     pipeline->func_open_video_output  = func_open_video_output;
+    pipeline->func_open_audio_output  = func_open_audio_output;
 
     return pipeline;
 }

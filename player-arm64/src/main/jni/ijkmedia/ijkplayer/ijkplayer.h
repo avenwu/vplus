@@ -26,16 +26,15 @@
 #include <stdbool.h>
 #include "ff_ffmsg_queue.h"
 
-#include "ijkutil/ijkutil.h"
 #include "ijkmeta.h"
 
 #ifndef MPTRACE
-#define MPTRACE ALOGW
+#define MPTRACE ALOGD
 #endif
 
 typedef struct IjkMediaPlayer IjkMediaPlayer;
-typedef struct FFPlayer FFPlayer;
-typedef struct SDL_Vout SDL_Vout;
+struct FFPlayer;
+struct SDL_Vout;
 
 /*-
  MPST_CHECK_NOT_RET(mp->mp_state, MP_STATE_IDLE);
@@ -153,6 +152,7 @@ typedef struct SDL_Vout SDL_Vout;
 void            ijkmp_global_init();
 void            ijkmp_global_uninit();
 void            ijkmp_global_set_log_report(int use_report);
+void            ijkmp_global_set_log_level(int log_level);   // log_level = AV_LOG_xxx
 void            ijkmp_io_stat_register(void (*cb)(const char *url, int type, int bytes));
 void            ijkmp_io_stat_complete_register(void (*cb)(const char *url,
                                                            int64_t read_bytes, int64_t total_size,
@@ -162,30 +162,8 @@ void            ijkmp_io_stat_complete_register(void (*cb)(const char *url,
 IjkMediaPlayer *ijkmp_create(int (*msg_loop)(void*));
 void            ijkmp_set_format_callback(IjkMediaPlayer *mp, ijk_format_control_message cb, void *opaque);
 
-attribute_deprecated
-void            ijkmp_set_format_option(IjkMediaPlayer *mp, const char *name, const char *value);
-attribute_deprecated
-void            ijkmp_set_codec_option(IjkMediaPlayer *mp, const char *name, const char *value);
-attribute_deprecated
-void            ijkmp_set_sws_option(IjkMediaPlayer *mp, const char *name, const char *value);
-attribute_deprecated
-void            ijkmp_set_player_option(IjkMediaPlayer *mp, const char *name, const char *value);
-
 void            ijkmp_set_option(IjkMediaPlayer *mp, int opt_category, const char *name, const char *value);
 void            ijkmp_set_option_int(IjkMediaPlayer *mp, int opt_category, const char *name, int64_t value);
-
-attribute_deprecated
-void            ijkmp_set_overlay_format(IjkMediaPlayer *mp, int chroma_fourcc);
-attribute_deprecated
-void            ijkmp_set_picture_queue_capicity(IjkMediaPlayer *mp, int frame_count);
-attribute_deprecated
-void            ijkmp_set_max_fps(IjkMediaPlayer *mp, int max_fps);
-attribute_deprecated
-void            ijkmp_set_framedrop(IjkMediaPlayer *mp, int framedrop);
-attribute_deprecated
-void            ijkmp_set_auto_play_on_prepared(IjkMediaPlayer *mp, int auto_play_on_prepared);
-attribute_deprecated
-void            ijkmp_set_max_buffer_size(IjkMediaPlayer *mp, int max_buffer_size);
 
 int             ijkmp_get_video_codec_info(IjkMediaPlayer *mp, char **codec_info);
 int             ijkmp_get_audio_codec_info(IjkMediaPlayer *mp, char **codec_info);

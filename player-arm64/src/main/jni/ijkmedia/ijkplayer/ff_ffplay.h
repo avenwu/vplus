@@ -31,6 +31,7 @@
 void      ffp_global_init();
 void      ffp_global_uninit();
 void      ffp_global_set_log_report(int use_report);
+void      ffp_global_set_log_level(int log_level);
 void      ffp_io_stat_register(void (*cb)(const char *url, int type, int bytes));
 void      ffp_io_stat_complete_register(void (*cb)(const char *url,
                                                    int64_t read_bytes, int64_t total_size,
@@ -79,6 +80,9 @@ bool      ffp_is_flush_packet(AVPacket *pkt);
 Frame    *ffp_frame_queue_peek_writable(FrameQueue *f);
 void      ffp_frame_queue_push(FrameQueue *f);
 
+int       ffp_get_master_sync_type(VideoState *is);
+double    ffp_get_master_clock(VideoState *is);
+
 void      ffp_toggle_buffering_l(FFPlayer *ffp, int start_buffering);
 void      ffp_toggle_buffering(FFPlayer *ffp, int start_buffering);
 void      ffp_check_buffering_l(FFPlayer *ffp);
@@ -90,6 +94,6 @@ void      ffp_set_video_codec_info(FFPlayer *ffp, const char *module, const char
 void      ffp_set_audio_codec_info(FFPlayer *ffp, const char *module, const char *codec);
 
 // must be freed with free();
-IjkMediaMeta *ffp_get_meta_l(FFPlayer *ffp);
+struct IjkMediaMeta *ffp_get_meta_l(FFPlayer *ffp);
 
 #endif
