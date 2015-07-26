@@ -1,4 +1,4 @@
-<android.support.v4.widget.SwipeRefreshLayout
+<avenwu.net.vplus.widget.SwipeRecyclerFooterLayout
     android:id="@+id/swipe_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -7,11 +7,4 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recylerview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:padding="@dimen/item_margin"
-        app:spanCount="2"/>
-</android.support.v4.widget.SwipeRefreshLayout>
+</avenwu.net.vplus.widget.SwipeRecyclerFooterLayout>

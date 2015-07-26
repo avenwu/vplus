@@ -5,23 +5,22 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import avenwu.net.vplus.presenter.PostInCategoryPresenter;
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.PostInCategoryAdapter;
 import avenwu.net.vplus.pojo.MovieItem;
-import avenwu.net.vplus.widget.LoadingIndicator;
-import avenwu.net.vplus.widget.LoadingStatus;
+import avenwu.net.vplus.presenter.PostInCategoryPresenter;
 import avenwu.net.vplus.widget.OnLastItemVisible;
-import avenwu.net.vplus.widget.SimpleLoadingStatus;
 import avenwu.net.vplus.widget.State;
+import avenwu.net.vplus.widget.SwipeRecyclerFooterLayout;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -36,7 +35,7 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
     SwipeRefreshLayout mSwipeLayout;
     int mCateId;
     int mPageIndex = 1;
-    LoadingIndicator mLoadingIndicator;
+
 
     public PostInCategoryFragment() {
         // Required empty public constructor
@@ -66,7 +65,7 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list, null);
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recylerview);
+        mRecyclerView = ((SwipeRecyclerFooterLayout) mSwipeLayout).getRecyclerView();
         return view;
     }
 
@@ -79,6 +78,16 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
         // make sure the refresh view show as expected
+        ((SwipeRecyclerFooterLayout) mSwipeLayout).setOnLastItemVisible(new OnLastItemVisible() {
+            @Override
+            public void onVisible() {
+            }
+
+            @Override
+            public void onLoad(State state) {
+                requestHomeListData();
+            }
+        });
         mSwipeLayout.post(new Runnable() {
             @Override
             public void run() {
@@ -86,24 +95,6 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
             }
         });
         requestHomeListData();
-        mLoadingIndicator = LoadingIndicator.newIndicator(new OnLastItemVisible() {
-            @Override
-            public void onVisible() {
-                Toast.makeText(getActivity(), "Go Hit", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLoad(State state) {
-                Log.d("Test Log", "on load");
-                requestHomeListData();
-            }
-
-            @Override
-            public LoadingStatus getLoadingStatus() {
-                return (LoadingStatus) View.inflate(getActivity(), R.layout.loading_layout, null);
-            }
-        });
-        mRecyclerView.addOnScrollListener(mLoadingIndicator);
     }
 
     @Override
@@ -122,14 +113,14 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                     mAdapter.appendData(homeListData.data);
                 }
                 mSwipeLayout.setRefreshing(false);
-                mLoadingIndicator.setLoading(State.IDLE);
+                ((SwipeRecyclerFooterLayout) mSwipeLayout).getLoadingIndicator().setLoading(State.IDLE);
                 mPageIndex++;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 mSwipeLayout.setRefreshing(false);
-                mLoadingIndicator.setLoading(State.IDLE);
+                ((SwipeRecyclerFooterLayout) mSwipeLayout).getLoadingIndicator().setLoading(State.IDLE);
                 Toast.makeText(getActivity(), R.string.request_failed, Toast.LENGTH_SHORT).show();
             }
         });

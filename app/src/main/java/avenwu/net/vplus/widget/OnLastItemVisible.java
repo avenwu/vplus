@@ -7,6 +7,4 @@ public interface OnLastItemVisible {
     void onVisible();
 
     void onLoad(State state);
-
-    LoadingStatus getLoadingStatus();
 }

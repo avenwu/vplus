@@ -42,12 +42,16 @@ public class SimpleLoadingStatus extends LinearLayout implements LoadingStatus {
 
     @Override
     public void onStatusChanged(State state) {
-        if (State.IDLE.equals(state)) {
-            mProgressbar.setVisibility(GONE);
-            mLabel.setText("Nothing to load ...");
-        } else if (State.LOADING.equals(state)) {
-            mProgressbar.setVisibility(VISIBLE);
-            mLabel.setText("Loading ...");
+        try {
+            if (State.IDLE.equals(state)) {
+                mProgressbar.setVisibility(GONE);
+                mLabel.setText("Nothing to load ...");
+            } else if (State.LOADING.equals(state)) {
+                mProgressbar.setVisibility(VISIBLE);
+                mLabel.setText("Loading ...");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

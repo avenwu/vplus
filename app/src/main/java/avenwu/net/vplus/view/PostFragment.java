@@ -64,7 +64,7 @@ public class PostFragment extends PresenterFragment<PostPresenter> implements Sw
             ab.setDisplayHomeAsUpEnabled(true);
         }
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-        mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
+//        mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
         return view;
     }
 

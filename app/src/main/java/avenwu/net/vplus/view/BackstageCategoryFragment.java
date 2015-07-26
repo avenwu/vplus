@@ -58,7 +58,7 @@ public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPr
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list, null);
         mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-        mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
+//        mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
         return view;
     }
 
