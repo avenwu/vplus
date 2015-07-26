@@ -17,6 +17,7 @@ import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.PostInCategoryAdapter;
 import avenwu.net.vplus.pojo.MovieItem;
 import avenwu.net.vplus.presenter.PostPresenter;
+import avenwu.net.vplus.widget.SwipeRecyclerFooterLayout;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -27,8 +28,8 @@ import retrofit.client.Response;
 public class PostFragment extends PresenterFragment<PostPresenter> implements SwipeRefreshLayout
         .OnRefreshListener {
     PostInCategoryAdapter mAdapter = new PostInCategoryAdapter();
-    RecyclerView mRecylerView;
-    SwipeRefreshLayout mSwipeLayout;
+    RecyclerView mRecyclerView;
+    SwipeRecyclerFooterLayout mSwipeLayout;
     String mTab;
     String mTitle;
 
@@ -63,17 +64,17 @@ public class PostFragment extends PresenterFragment<PostPresenter> implements Sw
             ab.setHomeAsUpIndicator(R.drawable.ic_menu);
             ab.setDisplayHomeAsUpEnabled(true);
         }
-        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-//        mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
+        mSwipeLayout = (SwipeRecyclerFooterLayout) view.findViewById(R.id.swipe_layout);
+        mRecyclerView = mSwipeLayout.getRecyclerView();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecylerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mRecylerView.setAdapter(mAdapter);
-        mRecylerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
         // make sure the refresh view show as expected

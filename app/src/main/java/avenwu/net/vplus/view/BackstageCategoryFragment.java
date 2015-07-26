@@ -16,6 +16,7 @@ import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.StageCategoryAdapter;
 import avenwu.net.vplus.pojo.BackstageItem;
 import avenwu.net.vplus.presenter.StageCategoryPresenter;
+import avenwu.net.vplus.widget.SwipeRecyclerFooterLayout;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -26,8 +27,8 @@ import retrofit.client.Response;
 public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPresenter> implements SwipeRefreshLayout
         .OnRefreshListener {
     StageCategoryAdapter mAdapter = new StageCategoryAdapter();
-    RecyclerView mRecylerView;
-    SwipeRefreshLayout mSwipeLayout;
+    RecyclerView mRecyclerView;
+    SwipeRecyclerFooterLayout mSwipeLayout;
     int mCateId;
 
     public BackstageCategoryFragment() {
@@ -57,17 +58,17 @@ public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPr
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list, null);
-        mSwipeLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipe_layout);
-//        mRecylerView = (RecyclerView) view.findViewById(R.id.recylerview);
+        mSwipeLayout = (SwipeRecyclerFooterLayout) view.findViewById(R.id.swipe_layout);
+        mRecyclerView = mSwipeLayout.getRecyclerView();
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecylerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        mRecylerView.setAdapter(mAdapter);
-        mRecylerView.setItemAnimator(new DefaultItemAnimator());
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setAdapter(mAdapter);
+        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
         // make sure the refresh view show as expected
