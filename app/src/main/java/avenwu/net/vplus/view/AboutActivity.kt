@@ -4,8 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import avenwu.net.vplus.BuildConfig
 import avenwu.net.vplus.R
-import avenwu.net.vplus.presenter.Presenter
 import kotlinx.android.synthetic.about_layout.*
+import net.avenwu.support.presenter.Presenter
+import net.avenwu.support.presenter.PresenterActivity
 
 /**
  * Created by chaobin on 7/16/15.

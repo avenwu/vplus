@@ -66,6 +66,7 @@ public class MainActivity extends PresenterActivity<HomePresenter> implements Na
                 setFragmentContent("rand", PostFragment.class, bundle);
                 break;
             case R.id.menu_setting:
+                Toast.makeText(MainActivity.this, "测试Toast", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, SettingActivity.class));
                 break;
             case R.id.menu_about:

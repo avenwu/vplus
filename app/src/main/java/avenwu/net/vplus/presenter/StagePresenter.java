@@ -6,16 +6,11 @@ import android.text.TextUtils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Type;
-import java.util.Collection;
-import java.util.List;
+import net.avenwu.support.presenter.Presenter;
 
 import avenwu.net.vplus.api.CoreApi;
 import avenwu.net.vplus.pojo.BackstageCategoryData;
-import avenwu.net.vplus.pojo.CategoryData;
-import avenwu.net.vplus.pojo.CategoryJsonData;
 import avenwu.net.vplus.pojo.StageCategoryJsonData;
 import io.realm.Realm;
 import retrofit.Callback;

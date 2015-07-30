@@ -1,3 +1,3 @@
 include ':app', ":player-armv5", ":player-armv7a",":player-arm64", ":player-x86",
-        ":player-java"
-//project(':support').projectDir = new File(rootDir, "../../support/support")
+        ":player-java", ":support"
+project(':support').projectDir = new File(rootDir, "../../support/support")

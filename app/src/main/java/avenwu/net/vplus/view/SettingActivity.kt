@@ -3,7 +3,8 @@ package avenwu.net.vplus.view
 import android.os.Bundle
 import android.view.MenuItem
 
-import avenwu.net.vplus.presenter.Presenter
+import net.avenwu.support.presenter.Presenter
+import net.avenwu.support.presenter.PresenterActivity
 
 /**
  * Created by chaobin on 7/16/15.

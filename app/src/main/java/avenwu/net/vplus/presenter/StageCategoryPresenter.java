@@ -1,8 +1,9 @@
 package avenwu.net.vplus.presenter;
 
+import net.avenwu.support.presenter.Presenter;
+
 import avenwu.net.vplus.api.CoreApi;
 import avenwu.net.vplus.pojo.BackstageItem;
-import avenwu.net.vplus.pojo.MovieItem;
 import retrofit.Callback;
 
 /**

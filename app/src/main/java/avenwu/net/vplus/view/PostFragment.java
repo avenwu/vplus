@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
@@ -12,6 +13,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import net.avenwu.support.presenter.PresenterFragment;
 
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.adapter.PostInCategoryAdapter;
@@ -59,7 +62,7 @@ public class PostFragment extends PresenterFragment<PostPresenter> implements Sw
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.hot_layout, null);
         Toolbar toolbar = (Toolbar) view.findViewById(R.id.toolbar);
-        ((MainActivity) getActivity()).setSupportActionBar(toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
         toolbar.setTitleTextColor(0xFFFFFFFF);
         toolbar.setTitle(mTitle);
         final ActionBar ab = ((MainActivity) getActivity()).getSupportActionBar();
