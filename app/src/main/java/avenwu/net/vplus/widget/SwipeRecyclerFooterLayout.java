@@ -1,6 +1,7 @@
 package avenwu.net.vplus.widget;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -30,6 +31,10 @@ public class SwipeRecyclerFooterLayout extends SwipeRefreshLayout {
         int margin = getResources().getDimensionPixelSize(R.dimen.item_margin);
         mRecyclerView.setPadding(margin, margin, margin, margin);
         addView(mRecyclerView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+//        inject(R.layout.loading_layout);
+    }
+
+    public SwipeRecyclerFooterLayout inject(@LayoutRes int id) {
         mLoadingIndicator = LoadingIndicator.newIndicator(new OnLastItemVisible() {
             @Override
             public void onVisible() {
@@ -44,7 +49,8 @@ public class SwipeRecyclerFooterLayout extends SwipeRefreshLayout {
                     onLastItemVisible.onLoad(state);
                 }
             }
-        }).fromXml(getContext(), R.layout.loading_layout).inject(mRecyclerView);
+        }).fromXml(getContext(), id).inject(mRecyclerView);
+        return this;
     }
 
     @Override
@@ -66,7 +72,7 @@ public class SwipeRecyclerFooterLayout extends SwipeRefreshLayout {
     private boolean canListViewScrollUp() {
         if (android.os.Build.VERSION.SDK_INT < 14) {
             return mRecyclerView.getChildCount() > 0 && (isFirstVisiblePositionEqualZero() ||
-                    mRecyclerView.getChildAt(0).getTop() < mRecyclerView.getPaddingTop());
+                mRecyclerView.getChildAt(0).getTop() < mRecyclerView.getPaddingTop());
         } else {
             return ViewCompat.canScrollVertically(mRecyclerView, -1);
         }
@@ -81,7 +87,7 @@ public class SwipeRecyclerFooterLayout extends SwipeRefreshLayout {
         }
     }
 
-    public void setOnLastItemVisible(OnLastItemVisible lastItemVisible) {
+    public void withListener(OnLastItemVisible lastItemVisible) {
         this.onLastItemVisible = lastItemVisible;
     }
 

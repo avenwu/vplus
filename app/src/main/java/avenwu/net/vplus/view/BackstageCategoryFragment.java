@@ -64,7 +64,9 @@ public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPr
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list, null);
         mSwipeLayout = (SwipeRecyclerFooterLayout) view.findViewById(R.id.swipe_layout);
+        mSwipeLayout.setSaveFromParentEnabled(false);
         mRecyclerView = mSwipeLayout.getRecyclerView();
+        mRecyclerView.setSaveFromParentEnabled(false);
         return view;
     }
 
@@ -76,7 +78,7 @@ public class BackstageCategoryFragment extends PresenterFragment<StageCategoryPr
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setOnLastItemVisible(new OnLastItemVisible() {
+        mSwipeLayout.inject(R.layout.loading_layout).withListener(new OnLastItemVisible() {
             @Override
             public void onVisible() {
             }

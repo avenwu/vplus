@@ -7,11 +7,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import net.avenwu.support.presenter.PresenterFragment;
+import net.avenwu.support.protocol.UIAction;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +23,6 @@ import java.util.List;
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.pojo.BackstageCategoryData;
 import avenwu.net.vplus.presenter.StagePresenter;
-import avenwu.net.vplus.protocol.UIAction;
 
 /**
  * Created by chaobin on 7/14/15.
@@ -65,8 +68,8 @@ public class BackstageFragment extends PresenterFragment<StagePresenter> {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.category_layout, null);
-        ((MainActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
-        final ActionBar ab = ((MainActivity) getActivity()).getSupportActionBar();
+        ((AppCompatActivity) getActivity()).setSupportActionBar((Toolbar) view.findViewById(R.id.toolbar));
+        final ActionBar ab = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (ab != null) {
             ab.setHomeAsUpIndicator(R.drawable.ic_menu);
             ab.setDisplayHomeAsUpEnabled(true);

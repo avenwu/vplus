@@ -13,13 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import net.avenwu.support.presenter.PresenterFragment;
+import net.avenwu.support.protocol.UIAction;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import avenwu.net.vplus.R;
 import avenwu.net.vplus.pojo.CategoryData;
 import avenwu.net.vplus.presenter.HomePresenter;
-import avenwu.net.vplus.protocol.UIAction;
 
 /**
  * Created by chaobin on 7/14/15.
@@ -43,7 +45,7 @@ public class HomeFragment extends PresenterFragment<HomePresenter> {
             public void onUpdateUI(List<CategoryData> data) {
                 if (data == null || data.size() <= 0) {
                     Toast.makeText(getActivity(), R.string.request_failed, Toast
-                            .LENGTH_SHORT).show();
+                        .LENGTH_SHORT).show();
                 } else {
                     mCategoryList.addAll(data);
                     notifyTabLayout();

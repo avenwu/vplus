@@ -83,7 +83,7 @@ public class PostFragment extends PresenterFragment<PostPresenter> implements Sw
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setOnLastItemVisible(new OnLastItemVisible() {
+        mSwipeLayout.inject(R.layout.loading_layout).withListener(new OnLastItemVisible() {
             @Override
             public void onVisible() {
             }

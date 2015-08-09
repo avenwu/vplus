@@ -1,10 +1,12 @@
 package avenwu.net.vplus.view;
 
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.view.LayoutInflater;
@@ -29,14 +31,14 @@ import retrofit.client.Response;
  * A simple {@link Fragment} subclass.
  */
 public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPresenter> implements SwipeRefreshLayout
-        .OnRefreshListener {
+    .OnRefreshListener {
     PostInCategoryAdapter mAdapter = new PostInCategoryAdapter();
     RecyclerView mRecyclerView;
     SwipeRecyclerFooterLayout mSwipeLayout;
     int mCateId;
     int mPageIndex = 1;
     int mItemMargin;
-
+    int mSpanCount;
     public PostInCategoryFragment() {
         // Required empty public constructor
     }
@@ -59,6 +61,12 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
         super.onCreate(savedInstanceState);
         mCateId = getArguments().getInt("cate_id");
         mItemMargin = getResources().getDimensionPixelSize(R.dimen.item_margin);
+        mSpanCount = getSpanCount(getActivity().getResources().getConfiguration());
+    }
+
+    @Override
+    public void setInitialSavedState(SavedState state) {
+        super.setInitialSavedState(state);
     }
 
     @Override
@@ -66,28 +74,32 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_list, null);
         mSwipeLayout = (SwipeRecyclerFooterLayout) view.findViewById(R.id.swipe_layout);
+        mSwipeLayout.setSaveFromParentEnabled(false);
         mRecyclerView = mSwipeLayout.getRecyclerView();
+        mRecyclerView.setSaveFromParentEnabled(false);
         return view;
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getActivity(), mSpanCount));
+        mAdapter.setSpanCount(mSpanCount);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mSwipeLayout.setColorSchemeResources(R.color.indigo_500, R.color.indigo_700);
         mSwipeLayout.setOnRefreshListener(this);
-        mSwipeLayout.setOnLastItemVisible(new OnLastItemVisible() {
-            @Override
-            public void onVisible() {
-            }
-
-            @Override
-            public void onLoad(State state) {
-                requestHomeListData();
-            }
-        });
+//        mSwipeLayout.inject(R.layout.loading_layout).withListener(new OnLastItemVisible() {
+//            @Override
+//            public void onVisible() {
+//            }
+//
+//            @Override
+//            public void onLoad(State state) {
+//                //TODO
+////                requestHomeListData();
+//            }
+//        });
         // make sure the refresh view show as expected
         mSwipeLayout.post(new Runnable() {
             @Override
@@ -96,6 +108,10 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
             }
         });
         requestHomeListData();
+    }
+
+    private int getSpanCount(Configuration configuration) {
+        return configuration.orientation == Configuration.ORIENTATION_LANDSCAPE ? 4 : 2;
     }
 
     @Override
@@ -114,16 +130,27 @@ public class PostInCategoryFragment extends PresenterFragment<PostInCategoryPres
                     mAdapter.appendData(homeListData.data);
                 }
                 mSwipeLayout.setRefreshing(false);
-                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
+//                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
                 mPageIndex++;
             }
 
             @Override
             public void failure(RetrofitError error) {
                 mSwipeLayout.setRefreshing(false);
-                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
+//                mSwipeLayout.getLoadingIndicator().setLoading(State.IDLE);
                 Toast.makeText(getActivity(), R.string.request_failed, Toast.LENGTH_SHORT).show();
             }
         });
     }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mSpanCount = getSpanCount(newConfig);
+        if (mRecyclerView.getLayoutManager() instanceof GridLayoutManager) {
+            ((GridLayoutManager) mRecyclerView.getLayoutManager()).setSpanCount(mSpanCount);
+            mAdapter.setSpanCount(mSpanCount);
+        }
+    }
+
 }

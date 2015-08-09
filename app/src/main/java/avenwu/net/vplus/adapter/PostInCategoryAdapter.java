@@ -36,12 +36,13 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
 
     List<MovieItem.Data> mData;
     int mWidth = 0;
+    int mSpanCount;
 
     @Override
     public Holder onCreateViewHolder(ViewGroup viewGroup, int position) {
         View view = View.inflate(viewGroup.getContext(), R.layout.home_item, null);
         if (mWidth == 0) {
-            mWidth = viewGroup.getResources().getDisplayMetrics().widthPixels / 2;
+            mWidth = viewGroup.getResources().getDisplayMetrics().widthPixels / mSpanCount;
         }
         view.setLayoutParams(new RecyclerView.LayoutParams(mWidth, (int) (1.29f * mWidth)));
         return new Holder(view);
@@ -67,12 +68,12 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
         final int height = (int) (percent * mWidth);
         holder.itemView.getLayoutParams().height = height;
         ImageRequest request = ImageRequestBuilder.newBuilderWithSource(Uri.parse(data.image))
-                .setResizeOptions(new ResizeOptions(mWidth, height))
-                .build();
+            .setResizeOptions(new ResizeOptions(mWidth, height))
+            .build();
         holder.pic.setController(Fresco.newDraweeControllerBuilder()
-                .setOldController(holder.pic.getController())
-                .setImageRequest(request)
-                .build());
+            .setOldController(holder.pic.getController())
+            .setImageRequest(request)
+            .build());
         holder.itemView.setTag(R.id.tv_info, encodeTag(data));
         holder.itemView.setOnClickListener(this);
     }
@@ -108,5 +109,9 @@ public class PostInCategoryAdapter extends RecyclerView.Adapter<PostInCategoryAd
             mData = data;
         }
         notifyDataSetChanged();
+    }
+
+    public void setSpanCount(int spanCount) {
+        mSpanCount = spanCount;
     }
 }
